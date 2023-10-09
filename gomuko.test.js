@@ -1,4 +1,4 @@
-const { initializeBoard, fourInARow, flushBoard, blanks, findFirstPositionOfBlack, boardFull, winningPlayer, gameWon, setmove, gameFinished, initiate, printResult, score, totalScore, playerMove } = require("./gomuko");
+const { initializeBoard, fourInARow, flushBoard, blanks, findFirstPositionOfBlack, boardFull, winningPlayer, gameWon, setmove, gameFinished, initiate, printResult, score, totalScore, playerMove, AIMove } = require("./gomuko");
 
 test('initializes a board with 0', () => {
     const array = [
@@ -588,39 +588,39 @@ test('calculates score of a board for a particular player when there is some con
 
 
 
-
-
-const rewire = require('babel');
-const gomuko = rewire('./gomuko');
-
 test('checking playerMove', async () => {
 
-    const board = [
+    let result1 = JSON.stringify({ "AImove": true, "move": [3, 3], "gameFinished": false, "result": 0 })
+    let result2 = JSON.stringify({ "AImove": true, "move": [3, 4], "gameFinished": false, "result": 0 })
+    let result3 = JSON.stringify({ "AImove": true, "move": [3, 5], "gameFinished": false, "result": 0 })
+    let result4 = JSON.stringify({ "AImove": true, "move": [4, 3], "gameFinished": false, "result": 0 })
+    let result5 = JSON.stringify({ "AImove": true, "move": [4, 5], "gameFinished": false, "result": 0 })
+    let result6 = JSON.stringify({ "AImove": true, "move": [5, 3], "gameFinished": false, "result": 0 })
+    let result7 = JSON.stringify({ "AImove": true, "move": [5, 4], "gameFinished": false, "result": 0 })
+    let result8 = JSON.stringify({ "AImove": true, "move": [5, 5], "gameFinished": false, "result": 0 })
+
+    expect([result1, result2, result3, result4, result5, result6, result7, result8]).toContain(JSON.stringify(playerMove(4, 4)))
+
+
+})
+
+test('checking AI move', () => {
+
+    const array = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, -1, -1, -1, -1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+        [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
-
-    gomuko.__set__('board', board);
-    gomuko.__set__('currentPlayer', -1);
-
-    let result = { "AImove": true, "gameFinished": false, "move": [2, 2], "result": 0 }
-    expect(gomuko.playerMove(0, 0)).toEqual(result);
+    expect(
+        AIMove(array, -1)
+    ).toEqual([4, 4])
 
 })
-
-
-
-
-
-
-
-
 
